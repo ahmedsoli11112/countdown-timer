@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Countdown</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #111;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+#timer {
+    font-size: 85px;
+    font-weight: bold;
+}
+
+#message {
+    margin-top: 20px;
+    font-size: 25px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>⏳ Countdown to 12:15 PM</h2>
+
+<div id="timer">00:00:00</div>
+
+<div id="message"></div>
+
+<script>
+// 5 October 2026 — 12:15 PM Saudi Arabia time
+const targetTime = new Date("2026-10-05T12:15:00+03:00").getTime();
+
+function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = targetTime - now;
+
+    if (distance <= 0) {
+        document.getElementById("timer").innerHTML = "00:00:00";
+        document.getElementById("message").innerHTML = "⏰ TIME IS UP";
+        return;
+    }
+
+    const hours = Math.floor(distance / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("timer").innerHTML =
+        String(hours).padStart(2, "0") + ":" +
+        String(minutes).padStart(2, "0") + ":" +
+        String(seconds).padStart(2, "0");
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
